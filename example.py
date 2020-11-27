@@ -173,3 +173,11 @@ body = {
     ],
     "contingencyType": "IF-THEN"
 }
+
+place_order_req_body = swagger_client.Body7(**body)
+
+message = api.api_client.sanitize_for_serialization(place_order_req_body)
+
+api.api_client.configuration.api_key = {"broAuth": "{},{}".format(apiKey, generate_signature(apiSecret, message))}
+api.open_account_order(**{"body": {"data": place_order_req_body}})
+
